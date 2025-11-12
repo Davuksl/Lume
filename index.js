@@ -54,11 +54,15 @@ app.post('/upload', upload.single('image'), (req, res) => {
 });
 
 app.post('/api/upload', upload.single('image'), (req, res) => {
-    if (!req.file) return res.status(400).json({ error: 'Файл не загружен' });
+    if (!req.file) return res.status(400).json({ status: 400, data: { link: null } });
+
+    const fullUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+
     res.json({ 
-        message: 'Файл успешно загружен',
-        filename: req.file.filename,
-        url: `/uploads/${req.file.filename}`
+        status: 200,
+        data: {
+            link: fullUrl
+        }
     });
 });
 
