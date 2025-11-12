@@ -57,15 +57,19 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
     if (!req.file) return res.status(400).json({ status: 400, data: { link: null } });
 
     const fullUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    req.json({
+        fullUrl
+    })
 
-    res.json({ 
+});
+/*
+     res.json({ 
         status: 200,
         data: {
             link: fullUrl
         }
     });
-});
-
+    */
 app.use((err, req, res, next) => {
     if (err instanceof multer.MulterError || err.message.includes('Только изображения')) {
         res.status(400).send(err.message);
