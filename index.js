@@ -57,12 +57,10 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
     if (!req.file) return res.status(400).json({ status: 400, data: { link: null } });
 
     const fullUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    const filename = req.file.filename;
 
     res.json({ 
-        status: 200,
-        data: {
-            link: fullUrl
-        }
+        filename
     });
 });
 
