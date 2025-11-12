@@ -54,13 +54,10 @@ app.post('/upload', upload.single('image'), (req, res) => {
 });
 
 app.post('/api/upload', upload.single('image'), (req, res) => {
+    if (!req.file) return res.status(400).send('Файл не загружен');
 
     const fullUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
-    const filename = req.file.filename;
-
-    res.json({ 
-        filename
-    });
+    res.send(fullUrl);
 });
 
 app.use((err, req, res, next) => {
