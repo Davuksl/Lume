@@ -14,12 +14,11 @@ if (!fs.existsSync(UPLOADS_FOLDER)) {
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads'); // папка для файлов
+        cb(null, 'uploads');
     },
     filename: (req, file, cb) => {
-        // Генерируем случайное имя
-        const randomName = crypto.randomBytes(3).toString('hex'); // 32 символа
-        const ext = path.extname(file.originalname); // сохраняем расширение
+        const randomName = crypto.randomBytes(3).toString('hex');
+        const ext = path.extname(file.originalname);
         cb(null, `${randomName}${ext}`);
     }
 });
